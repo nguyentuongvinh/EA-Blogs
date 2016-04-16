@@ -1,52 +1,56 @@
 package cs544.lab.ea_blogs.model;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import static javax.persistence.GenerationType.IDENTITY;
 
-import javax.persistence.CascadeType;
+import java.io.Serializable;
+
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 @Entity
-public class User {
+@Table(name = "user", catalog = "ea_blogs")
+public class User implements Serializable {
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int userId;
-	
-	@Column(unique = true)
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private Integer id;	
 	private String username;
 	private String password;
-	
-	@Enumerated(EnumType.STRING)
-	@ElementCollection
-	private Set<UserRole> roleSet = new HashSet<UserRole>();
-	
-	@OneToMany(mappedBy="user", cascade=CascadeType.ALL, orphanRemoval = true)
-	private List<Comment> commentList = new ArrayList<Comment>();
+	private String fullname;
+	private String email;
+	private String aboutUser;
+	private byte[] photo;
 	
 	public User() {
-		super();
 	}
 
-	public User(String username, String password) {
+	public User(String username, String password, String fullname, String email, String aboutUser, byte[] photo) {
 		super();
 		this.username = username;
 		this.password = password;
+		this.fullname = fullname;
+		this.email = email;
+		this.aboutUser = aboutUser;
+		this.photo = photo;
 	}
 
+	@Id
+	@GeneratedValue(strategy = IDENTITY)
+	@Column(name = "id", unique = true, nullable = false)
+	public Integer getId() {
+		return id;
+	}
+	
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-
-
+	@Column(name = "username", nullable = false)
 	public String getUsername() {
 		return username;
 	}
@@ -55,6 +59,7 @@ public class User {
 		this.username = username;
 	}
 
+	@Column(name = "password", nullable = false)
 	public String getPassword() {
 		return password;
 	}
@@ -63,20 +68,40 @@ public class User {
 		this.password = password;
 	}
 
-	public int getUserId() {
-		return userId;
+	@Column(name = "fullname")
+	public String getFullname() {
+		return fullname;
 	}
 
-	public Set<UserRole> getRoleSet() {
-		return roleSet;
+	public void setFullname(String fullname) {
+		this.fullname = fullname;
 	}
 
-	public void addComment(Comment c){
-		commentList.add(c);
+	@Column(name = "email")
+	public String getEmail() {
+		return email;
 	}
 
-	public void removeComment(Comment c){
-		commentList.remove(c);
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
+	@Column(name = "aboutuser")
+	public String getAboutUser() {
+		return aboutUser;
+	}
+
+	public void setAboutUser(String aboutUser) {
+		this.aboutUser = aboutUser;
+	}
+
+	@Column(name = "photo")
+	public byte[] getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(byte[] photo) {
+		this.photo = photo;
+	}
+	
 }
