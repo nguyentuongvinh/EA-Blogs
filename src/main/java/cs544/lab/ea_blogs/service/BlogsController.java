@@ -10,6 +10,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -38,9 +39,13 @@ public class BlogsController {
 	public String userList(Model model) {
 		logger.info("Get all users:");
 
-		model.addAttribute("users", userDao.findAll(new Sort(Direction.ASC, "name")));
+//		model.addAttribute("users", userDao.findAll(new Sort(Direction.ASC, "name")));
 		
 		return "userList";
 	}
 
+	@RequestMapping(value = "/article", method = RequestMethod.GET)
+	public String articleInfo(@PathVariable int articleId, Model model) {
+		return "artical";
+	}
 }

@@ -21,7 +21,7 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "artical", catalog = "ea_blogs")
-public class Artical implements Serializable {
+public class Article implements Serializable {
 	/**
 	 * 
 	 */
@@ -34,10 +34,10 @@ public class Artical implements Serializable {
 	private Category category;
 	private Set<Comment> comments = new HashSet<Comment>();
 		
-	public Artical() {
+	public Article() {
 	}
 
-	public Artical(String subject, String content, Date publishDate, User publishedBy, Category category) {
+	public Article(String subject, String content, Date publishDate, User publishedBy, Category category) {
 		super();
 		this.subject = subject;
 		this.content = content;

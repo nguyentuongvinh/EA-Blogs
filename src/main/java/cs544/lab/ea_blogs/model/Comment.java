@@ -28,17 +28,17 @@ public class Comment implements Serializable {
 	private String content;
 	private Date postDate;
 	private User postedBy;
-	private Artical artical;
+	private Article article;
 	
 	public Comment() {
 	}
 
-	public Comment(String content, Date postDate, User postedBy, Artical artical) {
+	public Comment(String content, Date postDate, User postedBy, Article article) {
 		super();
 		this.content = content;
 		this.postDate = postDate;
 		this.postedBy = postedBy;
-		this.artical = artical;
+		this.article = article;
 	}
 
 	@Id
@@ -83,12 +83,12 @@ public class Comment implements Serializable {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "artical_id", nullable = false)
-	public Artical getArtical() {
-		return artical;
+	public Article getArticle() {
+		return article;
 	}
 	
-	public void setArtical(Artical artical) {
-		this.artical = artical;
+	public void setArticle(Article article) {
+		this.article = article;
 	}
 	
 }
