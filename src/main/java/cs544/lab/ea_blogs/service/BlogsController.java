@@ -44,8 +44,13 @@ public class BlogsController {
 		return "userList";
 	}
 
-	@RequestMapping(value = "/article", method = RequestMethod.GET)
-	public String articleInfo(@PathVariable int articleId, Model model) {
-		return "artical";
+	@Transactional
+	@RequestMapping(value = "/articles", method = RequestMethod.GET)
+	public String article(Model model) {
+		logger.info("Get all users:");
+
+//		model.addAttribute("users", userDao.findAll(new Sort(Direction.ASC, "name")));
+		
+		return "userList";
 	}
 }
