@@ -1,4 +1,4 @@
-package cs544.lab.ea_blogs.dao;
+package cs544.lab.ea_blogs.repository;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 
 import cs544.lab.ea_blogs.model.Comment;
 
-public interface IComment extends JpaRepository<Comment, Integer> {
+public interface CommentRepository extends JpaRepository<Comment, Integer> {
 	@Query("SELECT c FROM Comment c WHERE c.article.id = :articleId")
 	public List<Comment> findCommentsByArticleId(@Param("articleId") Integer articleId);
 }

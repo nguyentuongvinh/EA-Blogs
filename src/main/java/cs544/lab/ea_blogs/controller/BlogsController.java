@@ -1,4 +1,4 @@
-package cs544.lab.ea_blogs.service;
+package cs544.lab.ea_blogs.controller;
 
 
 import java.util.List;
@@ -13,8 +13,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import cs544.lab.ea_blogs.dao.IUserDao;
 import cs544.lab.ea_blogs.model.User;
+import cs544.lab.ea_blogs.repository.UserRepository;
 
 /**
  * Handles requests for the application home page.
@@ -26,7 +26,7 @@ public class BlogsController {
 	
 
 	@Resource
-	private IUserDao userDao;
+	private UserRepository userDao;
 	
 	
 	@RequestMapping("/")
@@ -34,7 +34,6 @@ public class BlogsController {
 		return "redirect:/articles";
 	}
 
-	@Transactional
 	@RequestMapping(value = "/users", method = RequestMethod.GET)
 	public String userList(Model model) {
 		logger.info("Get all users:");
@@ -46,7 +45,6 @@ public class BlogsController {
 		return "main";
 	}
 
-	@Transactional
 	@RequestMapping(value = "/articles", method = RequestMethod.GET)
 	public String article(Model model) {
 		logger.info("Get all users:");

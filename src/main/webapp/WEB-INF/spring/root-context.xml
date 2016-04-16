@@ -51,7 +51,7 @@
 
 	<tx:annotation-driven transaction-manager="transactionManager" />
 
-	<jpa:repositories base-package="cs544.lab.ea_blogs.dao"
+	<jpa:repositories base-package="cs544.lab.ea_blogs.repository"
 		transaction-manager-ref="transactionManager"
 		entity-manager-factory-ref="entityManagerFactory" />
 		

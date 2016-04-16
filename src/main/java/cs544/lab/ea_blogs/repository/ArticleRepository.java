@@ -1,4 +1,4 @@
-package cs544.lab.ea_blogs.dao;
+package cs544.lab.ea_blogs.repository;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 
 import cs544.lab.ea_blogs.model.Article;
 
-public interface IArticle extends JpaRepository<Article, Integer> {
+public interface ArticleRepository extends JpaRepository<Article, Integer> {
 	@Query("SELECT a FROM Article a WHERE a.category.id = :categoryId")
 	public List<Article> findArticleByCategory(@Param("categoryId") Integer categoryId);
 	
