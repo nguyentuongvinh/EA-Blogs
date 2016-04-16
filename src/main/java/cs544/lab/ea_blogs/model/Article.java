@@ -20,7 +20,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "artical", catalog = "ea_blogs")
+@Table(name = "article", catalog = "ea_blogs")
 public class Article implements Serializable {
 	/**
 	 * 
@@ -105,7 +105,7 @@ public class Article implements Serializable {
 		this.category = category;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "artical")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "article")
 	public Set<Comment> getComments() {
 		return comments;
 	}
