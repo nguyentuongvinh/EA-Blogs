@@ -82,7 +82,7 @@ public class Comment implements Serializable {
 	}
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "artical_id", nullable = false)
+	@JoinColumn(name = "article_id", nullable = false)
 	public Article getArticle() {
 		return article;
 	}
