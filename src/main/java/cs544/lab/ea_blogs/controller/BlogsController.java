@@ -41,7 +41,7 @@ public class BlogsController {
 	
 	@RequestMapping("/")
 	public String redirectRoot() {
-		return "redirect:/articles";
+		return "main";
 	}
 
 	@RequestMapping(value = "/users", method = RequestMethod.GET)
