@@ -28,6 +28,7 @@ public class Article implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Integer id;
 	private String subject;
+	private String subtilte;
 	private String content;
 	private Date publishDate;
 	private User publishedBy;
@@ -114,4 +115,12 @@ public class Article implements Serializable {
 		this.comments = comments;
 	}
 
+	@Column(name = "subtitle")
+	public String getSubtilte() {
+		return subtilte;
+	}
+
+	public void setSubtilte(String subtilte) {
+		this.subtilte = subtilte;
+	}	
 }

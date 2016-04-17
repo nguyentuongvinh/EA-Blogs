@@ -13,9 +13,13 @@ import cs544.lab.ea_blogs.repository.ArticleRepository;
 @Transactional
 public class ArticleService {
 	@Autowired
-	private ArticleRepository articleDAO;
+	private ArticleRepository articleRepository;
 	
 	public List<Article> findArticleByCategory(Integer categoryId) {
-		return articleDAO.findArticleByCategory(categoryId);
+		return articleRepository.findArticleByCategory(categoryId);
+	}
+	
+	public List<Article> findFiveLatestArticle() {
+		return articleRepository.findFiveLatestArticle();
 	}
 }
