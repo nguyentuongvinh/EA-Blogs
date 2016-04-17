@@ -82,8 +82,8 @@
 	<sec:http>
 		<sec:intercept-url pattern="article.jsp" access="hasAnyRole('ROLE_USER','ROLE_ANONYMOUS')" />
 		<sec:intercept-url pattern="/**" access="hasRole('ROLE_ANONYMOUS')" />
-		<sec:form-login />
-		<sec:logout />
+		<sec:form-login/>
+		<sec:logout/>
 	</sec:http>
 
 	<sec:authentication-manager>

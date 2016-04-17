@@ -4,15 +4,18 @@ package cs544.lab.ea_blogs.controller;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import cs544.lab.ea_blogs.model.Comment;
 import cs544.lab.ea_blogs.service.ArticleService;
 import cs544.lab.ea_blogs.service.CategoryService;
 import cs544.lab.ea_blogs.service.CommentService;
@@ -58,6 +61,13 @@ public class BlogsController {
 	public String articleDetail(@PathVariable("articleId") Integer articleId, Map<String, Object> map) {
 		map.put("categories", categoryService.findAll());
 		map.put("article", articleService.findArticleById(articleId));
+
+		return "articleDetail";
+	}
+	
+	@RequestMapping(value = "/article/{articleId}/postComment/", method = RequestMethod.POST)
+	public String articlePostComment(@Valid @ModelAttribute("comment") Comment comment, Map<String, Object> map) {
+		map.put("categories", categoryService.findAll());
 
 		return "articleDetail";
 	}
