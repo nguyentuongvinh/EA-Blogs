@@ -1,26 +1,18 @@
 package cs544.lab.ea_blogs.controller;
 
 
-import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
 
-import cs544.lab.ea_blogs.model.Category;
-import cs544.lab.ea_blogs.model.User;
-import cs544.lab.ea_blogs.repository.UserRepository;
 import cs544.lab.ea_blogs.service.ArticleService;
 import cs544.lab.ea_blogs.service.CategoryService;
 import cs544.lab.ea_blogs.service.CommentService;
@@ -55,27 +47,18 @@ public class BlogsController {
 	}
 	
 	@RequestMapping(value = "/article/category/{categoryId}/", method = RequestMethod.GET)
-	public String redirectRoot(@PathVariable("categoryId") Integer categoryId, Map<String, Object> map, 
-			HttpServletRequest request) {
+	public String articleByCategoryId(@PathVariable("categoryId") Integer categoryId, Map<String, Object> map) {
 		map.put("categories", categoryService.findAll());
 		map.put("articles", articleService.findArticleByCategory(categoryId));
 
-		return "main";
+		return "articleByCategoryId";
 	}
+	
+	@RequestMapping(value = "/article/{articleId}/", method = RequestMethod.GET)
+	public String articleDetail(@PathVariable("articleId") Integer articleId, Map<String, Object> map) {
+		map.put("categories", categoryService.findAll());
+		map.put("article", articleService.findArticleById(articleId));
 
-	@RequestMapping(value = "/users", method = RequestMethod.GET)
-	public String userList(Model model) {
-		logger.info("Get all users:");
-
-		List<User> users = userService.findByUsername("reader");
-		for (User user : users)
-			logger.info(user.getPassword());
-		
-		return "main";
-	}
-
-	@RequestMapping(value = "/articles", method = RequestMethod.GET)
-	public String article(Model model) {
-		return "articles";
+		return "articleDetail";
 	}
 }

@@ -16,4 +16,6 @@ public interface ArticleRepository extends JpaRepository<Article, Integer> {
 	
 	@Query("SELECT a FROM Article a")
 	public List<Article> findFiveLatestArticle();
+	
+	public Article findArticleById(Integer articleId);
 }
