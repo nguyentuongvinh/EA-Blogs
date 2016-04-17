@@ -16,10 +16,14 @@ public class ArticleService {
 	private ArticleRepository articleRepository;
 	
 	public List<Article> findArticleByCategory(Integer categoryId) {
-		return articleRepository.findArticleByCategory(categoryId);
+		return articleRepository.findArticleByCategoryId(categoryId);
 	}
 	
 	public List<Article> findFiveLatestArticle() {
 		return articleRepository.findFiveLatestArticle();
+	}
+	
+	public List<Article> findAll() {
+		return articleRepository.findAll();
 	}
 }
