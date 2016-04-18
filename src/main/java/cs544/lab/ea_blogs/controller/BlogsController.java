@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import cs544.lab.ea_blogs.model.Article;
 import cs544.lab.ea_blogs.model.Comment;
 import cs544.lab.ea_blogs.model.User;
-import cs544.lab.ea_blogs.repository.CommentRepository;
 import cs544.lab.ea_blogs.service.ArticleService;
 import cs544.lab.ea_blogs.service.CategoryService;
 import cs544.lab.ea_blogs.service.CommentService;

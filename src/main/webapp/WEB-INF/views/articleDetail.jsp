@@ -135,7 +135,7 @@
 		    <tr>
 		    	<td></td>
 		    	<td>
-		    	<p>${element.content}</p>
+		    	<div class="gig-comment-body"><p>${element.content}</p></div>
 		    	</td>
 		    </tr>
 		</table>
