@@ -95,19 +95,53 @@
             </div>
         </div>
     </article>
-
+    
+	<hr>
+	
 	<!-- Comment -->
 	<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"> 
 		<h4>Leave a Comment:</h4>
-        <form role="form" action="postComment" method="post">
+        <form role="form" action="postComment/" method="post">
             <div class="form-group">
-                <textarea class="form-control" rows="3"></textarea>
+                <textarea name="comment" class="form-control" rows="3"></textarea>
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
         </form>
     </div>
 
-	<hr>         
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <h5>${NumOfComments} Comments</h5>
+        <hr>
+	    <c:forEach items="${comments}" var="element"> 
+	    <table>
+		    <tr>
+		        <td width="50">
+		        	<div class="gig-comment-photo">
+						<img class="gig-comment-img" alt="" src="https://s.yimg.com/dh/ap/social/profile/profile_b192.png" style="vertical-align: top; height: 37px;">
+					</div>
+		        </td>
+		        <td>
+		        	<div class="gig-comment-header">
+					<div class="gig-comment-header-right">
+						<span class="gig-comment-edited" style="display: none;">(edited)</span>
+						<span class="gig-comment-time">9 hours ago</span>
+					</div>
+					<div class="gig-comment-header-left">
+					<span class="gig-comment-username">${element.postedBy.fullname}</span></div></div>
+		        </td>
+		    </tr>
+
+		    <tr>
+		    	<td></td>
+		    	<td>
+		    	<p>${element.content}</p>
+		    	</td>
+		    </tr>
+		</table>
+		<hr>
+		</c:forEach>
+    </div>
     
     <!-- Footer -->
     <footer>

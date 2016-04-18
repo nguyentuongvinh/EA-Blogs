@@ -18,4 +18,8 @@ public class CommentService {
 	public List<Comment> findCommentsByArticleId(Integer articleId) {
 		return commentRepository.findCommentsByArticleId(articleId);
 	}
+	
+	public void saveComment(Comment comment) {
+		commentRepository.save(comment);
+	}
 }
