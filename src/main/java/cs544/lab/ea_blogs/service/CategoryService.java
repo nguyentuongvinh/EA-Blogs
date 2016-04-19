@@ -18,4 +18,8 @@ public class CategoryService {
 	public List<Category> findAll() {
 		return categoryRepository.findAll();
 	}
+	
+	public Category findById(Integer id) {
+		return categoryRepository.findOne(id);
+	}
 }

@@ -1,6 +1,9 @@
 package cs544.lab.ea_blogs.controller;
 
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.security.Principal;
 import java.util.List;
 import java.util.Map;
@@ -8,14 +11,15 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import cs544.lab.ea_blogs.model.Article;
 import cs544.lab.ea_blogs.model.Comment;
@@ -31,7 +35,7 @@ import cs544.lab.ea_blogs.service.UserService;
 @Controller
 public class BlogsController {
 	
-	private static final Logger logger = LoggerFactory.getLogger(BlogsController.class);
+//	private static final Logger logger = LoggerFactory.getLogger(BlogsController.class);
 
 	@Autowired
 	private ArticleService articleService;
@@ -78,11 +82,37 @@ public class BlogsController {
 			@Valid @ModelAttribute("comment") String comment, Map<String, Object> map, 
 			Principal principal) {
 		Article article = articleService.findArticleById(articleId);
-		User user = userService.findByUsername("reader");
+		User user = userService.findByUsername("reader01");
 		
 		Comment cmt = new Comment(comment, user, article);
 		commentService.saveComment(cmt);
 		
 		return "redirect:/article/{articleId}/";
+	}
+	
+	@Transactional
+	@RequestMapping(value="/articleImage/{articleId}", method=RequestMethod.GET, produces=MediaType.IMAGE_JPEG_VALUE)
+	public @ResponseBody byte[] getArticleImage(@PathVariable int articleId){
+		return articleService.findArticleById(articleId).getImage();
+	}
+
+	@Transactional
+	@RequestMapping(value="/userPhoto/{userId}", method=RequestMethod.GET, produces=MediaType.IMAGE_JPEG_VALUE)
+	public @ResponseBody byte[] getUserPhoto(@PathVariable int userId){
+		byte[] image;
+		if (userService.findByUserId(userId).getPhoto() != null)
+			image = userService.findByUserId(userId).getPhoto();
+		else {
+			File fi = new File("img/defaultUserPhoto.jpg");
+			try {
+				image =  Files.readAllBytes(fi.toPath());
+			} catch (IOException e) {
+				e.printStackTrace();
+			} finally {
+				image = userService.findByUserId(userId).getPhoto();
+			}
+		}
+		
+		return image;
 	}
 }

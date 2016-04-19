@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:security="http://www.springframework.org/schema/security"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:sec="http://www.springframework.org/schema/security" xmlns:jpa="http://www.springframework.org/schema/data/jpa"
 	xmlns:tx="http://www.springframework.org/schema/tx"
@@ -88,6 +89,7 @@
 		<sec:intercept-url pattern="/**" access="hasAnyRole('ROLE_ANONYMOUS', 'ROLE_READER', 'ROLE_PUBLISHER', 'ROLE_ADMIN')" />
 		<sec:form-login />
 		<sec:logout />
+		<security:csrf disabled="true"/>
 	</sec:http>
 
 	<sec:authentication-manager>

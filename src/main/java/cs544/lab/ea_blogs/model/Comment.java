@@ -7,7 +7,6 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -34,12 +33,12 @@ public class Comment implements Serializable {
 	@Column(name = "post_date")
 	private Date postDate;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="post_id", nullable = false)
+	@ManyToOne
+	@JoinColumn(name="post_id")
 	private User postedBy;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "article_id", nullable = false)
+	@ManyToOne
+	@JoinColumn(name = "article_id")
 	private Article article;
 	
 	public Comment() {

@@ -60,7 +60,7 @@
 					  </li>
 					</c:forEach>
 					<li>
-                        <a href="login">Login</a>
+                        <a href="${pageContext.request.contextPath}/login">Login</a>
                     </li>
                 </ul>
             </div>
@@ -91,6 +91,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                	<img src="${pageContext.request.contextPath}/articleImage/${article.id}" />
                     <p>${article.content}</p>
              </div>
             </div>
@@ -119,7 +120,8 @@
 		    <tr>
 		        <td width="50">
 		        	<div class="gig-comment-photo">
-						<img class="gig-comment-img" alt="" src="https://s.yimg.com/dh/ap/social/profile/profile_b192.png" style="vertical-align: top; height: 37px;">
+		        		<img src="${pageContext.request.contextPath}/userPhoto/${element.postedBy.id}" />
+						<!-- <img class="gig-comment-img" alt="" src="https://s.yimg.com/dh/ap/social/profile/profile_b192.png" style="vertical-align: top; height: 37px;"> -->
 					</div>
 		        </td>
 		        <td>
@@ -127,7 +129,7 @@
 					<div class="gig-comment-header-right">
 						<span class="gig-comment-edited" style="display: none;">(edited)</span>
 						<%-- <span class="gig-comment-time">${element.postedDate}</span> --%>
-						<span class="gig-comment-time">10 hours ago</span>
+						<span class="gig-comment-time">${element.postDate}</span>
 					</div>
 					<div class="gig-comment-header-left">
 					<span class="gig-comment-username">${element.postedBy.fullname}</span></div></div>

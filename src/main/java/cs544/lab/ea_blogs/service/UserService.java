@@ -1,7 +1,5 @@
 package cs544.lab.ea_blogs.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,5 +15,13 @@ public class UserService {
 	
 	public User findByUsername(String userName) {
 		return userRepository.findByUsername(userName);
+	}
+	
+	public void saveOrUpdate(User user) {
+		userRepository.save(user);
+	}
+	
+	public User findByUserId(Integer Id) {
+		return userRepository.findOne(Id);
 	}
 }
