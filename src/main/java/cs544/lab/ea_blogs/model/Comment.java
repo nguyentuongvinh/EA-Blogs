@@ -12,38 +12,48 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "comment", catalog = "ea_blogs")
 public class Comment implements Serializable {
+
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -1790462242322331230L;
+	
+	@Id
+	@GeneratedValue(strategy = IDENTITY)
 	private Integer id;
+	
+	@Column(nullable = false, columnDefinition = "TEXT")
 	private String content;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "post_date")
 	private Date postDate;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="post_id", nullable = false)
 	private User postedBy;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "article_id", nullable = false)
 	private Article article;
 	
 	public Comment() {
 	}
 
-	public Comment(String content, Date postDate, User postedBy, Article article) {
+	public Comment(String content, User postedBy, Article article) {
 		super();
 		this.content = content;
-		this.postDate = postDate;
+		this.postDate = new Date();
 		this.postedBy = postedBy;
 		this.article = article;
 	}
 
-	@Id
-	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "id", unique = true, nullable = false)
+	
 	public Integer getId() {
 		return id;
 	}
@@ -52,7 +62,6 @@ public class Comment implements Serializable {
 		this.id = id;
 	}
 	
-	@Column(name = "content", nullable = false)
 	public String getContent() {
 		return content;
 	}	
@@ -61,8 +70,7 @@ public class Comment implements Serializable {
 		this.content = content;
 	}
 	
-	@Temporal(TemporalType.DATE)
-	@Column(name = "post_date", length = 10)
+	
 	public Date getPostDate() {
 		return postDate;
 	}
@@ -71,8 +79,7 @@ public class Comment implements Serializable {
 		this.postDate = postDate;
 	}
 	
-	@OneToOne
-	@JoinColumn(name="post_id")
+	
 	public User getPostedBy() {
 		return postedBy;
 	}
@@ -81,8 +88,6 @@ public class Comment implements Serializable {
 		this.postedBy = postedBy;
 	}
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "article_id", nullable = false)
 	public Article getArticle() {
 		return article;
 	}

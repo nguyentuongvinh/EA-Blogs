@@ -28,6 +28,6 @@ public class ArticleService {
 	}
 	
 	public Article findArticleById(Integer articleId) {
-		return articleRepository.findArticleById(articleId);
+		return articleRepository.findOne(articleId);
 	}
 }

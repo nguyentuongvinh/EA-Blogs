@@ -2,13 +2,14 @@ package cs544.lab.ea_blogs.controller;
 
 
 import java.security.Principal;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -30,7 +31,8 @@ import cs544.lab.ea_blogs.service.UserService;
 @Controller
 public class BlogsController {
 	
-//	private static final Logger logger = LoggerFactory.getLogger(BlogsController.class);
+	private static final Logger logger = LoggerFactory.getLogger(BlogsController.class);
+
 	@Autowired
 	private ArticleService articleService;
 	
@@ -78,7 +80,7 @@ public class BlogsController {
 		Article article = articleService.findArticleById(articleId);
 		User user = userService.findByUsername("reader");
 		
-		Comment cmt = new Comment(comment, Calendar.getInstance().getTime(), user, article);
+		Comment cmt = new Comment(comment, user, article);
 		commentService.saveComment(cmt);
 		
 		return "redirect:/article/{articleId}/";

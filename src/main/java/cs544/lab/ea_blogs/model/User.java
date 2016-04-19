@@ -3,28 +3,49 @@ package cs544.lab.ea_blogs.model;
 import static javax.persistence.GenerationType.IDENTITY;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.Lob;
+
 
 @Entity
-@Table(name = "user", catalog = "ea_blogs")
 public class User implements Serializable {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
-	private Integer id;	
+	private static final long serialVersionUID = -4159563455063691436L;
+
+
+	@Id
+	@GeneratedValue(strategy = IDENTITY)
+	private Integer id;
+	
+	@Column(nullable = false)
 	private String username;
+	
+	@Column(nullable = false)
 	private String password;
 	private String fullname;
 	private String email;
+	
+	@Column(name = "aboutuser")
 	private String aboutUser;
+	
+	@Lob
 	private byte[] photo;
+	
+	@Enumerated(EnumType.STRING)
+	@ElementCollection
+	private Set<UserRole> roleSet = new HashSet<UserRole>();
 	
 	public User() {
 	}
@@ -39,9 +60,7 @@ public class User implements Serializable {
 		this.photo = photo;
 	}
 
-	@Id
-	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "id", unique = true, nullable = false)
+
 	public Integer getId() {
 		return id;
 	}
@@ -50,7 +69,7 @@ public class User implements Serializable {
 		this.id = id;
 	}
 
-	@Column(name = "username", nullable = false)
+
 	public String getUsername() {
 		return username;
 	}
@@ -59,7 +78,6 @@ public class User implements Serializable {
 		this.username = username;
 	}
 
-	@Column(name = "password", nullable = false)
 	public String getPassword() {
 		return password;
 	}
@@ -68,7 +86,6 @@ public class User implements Serializable {
 		this.password = password;
 	}
 
-	@Column(name = "fullname")
 	public String getFullname() {
 		return fullname;
 	}
@@ -77,7 +94,6 @@ public class User implements Serializable {
 		this.fullname = fullname;
 	}
 
-	@Column(name = "email")
 	public String getEmail() {
 		return email;
 	}
@@ -86,7 +102,7 @@ public class User implements Serializable {
 		this.email = email;
 	}
 
-	@Column(name = "aboutuser")
+
 	public String getAboutUser() {
 		return aboutUser;
 	}
@@ -95,13 +111,22 @@ public class User implements Serializable {
 		this.aboutUser = aboutUser;
 	}
 
-	@Column(name = "photo")
+
 	public byte[] getPhoto() {
 		return photo;
 	}
 
 	public void setPhoto(byte[] photo) {
 		this.photo = photo;
+	}
+
+
+	public Set<UserRole> getRoleSet() {
+		return roleSet;
+	}
+
+	public void setRoleSet(Set<UserRole> roleSet) {
+		this.roleSet = roleSet;
 	}
 	
 }
