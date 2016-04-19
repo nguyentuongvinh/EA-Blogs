@@ -18,14 +18,19 @@
 	<!-- Root Context: defines shared resources visible to all other web components -->
 
 	<context:annotation-config />
+	
+	<context:property-placeholder location="classpath*:application.properties" />
+
+	<bean id="propertyPlaceHolderConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer" />
 
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="driverClassName" value="${db.driverClassName}" />
 		<property name="url"
-			value="jdbc:mysql://localhost/ea_blogs?useSSL=false&amp;createDatabaseIfNotExist=true" />
-		<property name="username" value="root" />
-		<property name="password" value="12345678x@X" />
+			value="${db.url}" />
+		<property name="username" value="${db.username}" />
+		<property name="password" value="${db.password}" />
 	</bean>
 
 	<bean id="entityManagerFactory"
@@ -36,11 +41,11 @@
 		</property>
 		<property name="jpaProperties">
 			<props>
-				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
-				<!-- <prop key="hibernate.hbm2ddl.auto">create</prop> -->
-				<prop key="hibernate.show_sql">true</prop>
-				<prop key="hibernate.format_sql">true</prop>
-				<prop key="use_sql_comments">true</prop>
+				<prop key="hibernate.dialect">${hibernate.dialect}</prop>
+				<prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
+				<prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+				<prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
+				<prop key="use_sql_comments">${use_sql_comments}</prop>
 			</props>
 		</property>
 		<property name="packagesToScan" value="cs544.lab.ea_blogs.model" />
@@ -81,10 +86,9 @@
  -->
 
 	<sec:http>
-		<sec:intercept-url pattern="article.jsp" access="hasAnyRole('ROLE_USER','ROLE_ANONYMOUS')" />
-		<sec:intercept-url pattern="/**" access="hasRole('ROLE_ANONYMOUS')" />
-		<sec:form-login/>
-		<sec:logout/>
+		<sec:intercept-url pattern="/**" access="hasAnyRole('ROLE_ANONYMOUS', 'ROLE_READER', 'ROLE_PUBLISHER', 'ROLE_ADMIN')" />
+		<sec:form-login />
+		<sec:logout />
 		<security:csrf disabled="true"/>
 	</sec:http>
 
@@ -92,7 +96,7 @@
 		<sec:authentication-provider>
 			<sec:jdbc-user-service data-source-ref="dataSource"
 				users-by-username-query="select username, password, true as enabled from user where username = ?"
-				authorities-by-username-query="select u.username, ur.roleSet as authority from user u, user_roleset ur where u.userId = ur.User_userId and u.username = ?" />
+				authorities-by-username-query="select u.username, ur.roleSet as authority from user u, user_roleset ur where u.id = ur.User_id and u.username = ?" />
 		</sec:authentication-provider>
 	</sec:authentication-manager>
 

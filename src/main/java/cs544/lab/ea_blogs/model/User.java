@@ -14,11 +14,9 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
-import javax.persistence.Table;
 
 
 @Entity
-@Table(name="user", catalog = "ea_blogs")
 public class User implements Serializable {
 
 	/**

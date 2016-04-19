@@ -23,4 +23,6 @@
 	
 	<context:component-scan base-package="cs544.lab.ea_blogs" />
 	
+	<context:property-placeholder location="classpath*:application.properties" />
+	
 </beans:beans>
