@@ -20,4 +20,8 @@ public class UserService {
 	public void saveOrUpdate(User user) {
 		userRepository.save(user);
 	}
+	
+	public User findByUserId(Integer Id) {
+		return userRepository.findOne(Id);
+	}
 }
