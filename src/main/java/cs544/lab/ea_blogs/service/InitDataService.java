@@ -51,6 +51,11 @@ public class InitDataService {
 			userRepository.updatePhotoByUserId(i, readPic(USER_IMG_PREFIX + i + READ_IMG_SUFFIX));
 		}
 		
+		int articleCount = (int) articleRepository.count();
+		for (int i=1; i<=articleCount; i++){
+			articleRepository.updateImageByArticleId(i, readPic(ARTICLE_IMG_PREFIX + i + READ_IMG_SUFFIX));
+		}
+		
 		logger.info("update and flush...");
 		userRepository.flush();		
 		
@@ -66,10 +71,11 @@ public class InitDataService {
 		}
 	    ByteArrayOutputStream output = new ByteArrayOutputStream();
 	    byte[] buffer = new byte[4096];
+	    int n;
 
 	    try {
-			while (input.read(buffer)>0) {
-			    output.write(buffer);
+			while ((n=input.read(buffer))>0) {
+			    output.write(buffer, 0, n);
 			}
 		} catch (IOException e) {
 			logger.error("readPic ERROR: filename: {}", filename);

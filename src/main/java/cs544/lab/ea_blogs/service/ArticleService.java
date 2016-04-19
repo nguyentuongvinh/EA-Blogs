@@ -20,7 +20,7 @@ public class ArticleService {
 	}
 	
 	public List<Article> findFiveLatestArticle() {
-		return articleRepository.findFiveLatestArticle();
+		return articleRepository.findFirst5ByOrderByPublishDateDesc();
 	}
 	
 	public List<Article> findAll() {

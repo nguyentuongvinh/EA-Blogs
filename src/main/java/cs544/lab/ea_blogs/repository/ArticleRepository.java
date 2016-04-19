@@ -3,6 +3,7 @@ package cs544.lab.ea_blogs.repository;
 import java.util.List;
 
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -22,8 +23,7 @@ public interface ArticleRepository extends JpaRepository<Article, Integer> {
 	
 	public List<Article> findArticlesPostedByPublishedBy(Integer publishedBy);
 	
-	@Query("SELECT a FROM Article a")
-	public List<Article> findFiveLatestArticle();
+	public List<Article> findFirst5ByOrderByPublishDateDesc();
 	
 	@Modifying
 	@Query("UPDATE Article a SET a.image=:image WHERE a.id=:id")
