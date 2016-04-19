@@ -58,7 +58,7 @@
 					  </li>
 					</c:forEach>
 					<li>
-                        <a href="login">Login</a>
+                        <a href="${pageContext.request.contextPath}/login">Login</a>
                     </li>
                 </ul>
             </div>

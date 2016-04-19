@@ -11,14 +11,22 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "category", catalog = "ea_blogs")
+@Table(name="category", catalog = "ea_blogs")
 public class Category implements Serializable {
+
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2598108693268149836L;
+	
+	@Id
+	@GeneratedValue(strategy = IDENTITY)
 	private Integer id;
+	
+	@Column(nullable=false)
 	private String name;
+	
+	@Column(nullable=false)
 	private String description;
 	
 	public Category() {
@@ -30,9 +38,6 @@ public class Category implements Serializable {
 		this.description = description;
 	}
 
-	@Id
-	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "id", unique = true, nullable = false)
 	public Integer getId() {
 		return id;
 	}
@@ -41,7 +46,6 @@ public class Category implements Serializable {
 		this.id = id;
 	}
 	
-	@Column(name = "name", nullable=false)
 	public String getName() {
 		return name;
 	}
@@ -50,7 +54,6 @@ public class Category implements Serializable {
 		this.name = name;
 	}
 	
-	@Column(name = "description", nullable=false)
 	public String getDescription() {
 		return description;
 	}

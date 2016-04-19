@@ -60,7 +60,7 @@
 					  </li>
 					</c:forEach>
 					<li>
-                        <a href="login">Login</a>
+                        <a href="${pageContext.request.contextPath}/login">Login</a>
                     </li>
                 </ul>
             </div>
@@ -127,7 +127,7 @@
 					<div class="gig-comment-header-right">
 						<span class="gig-comment-edited" style="display: none;">(edited)</span>
 						<%-- <span class="gig-comment-time">${element.postedDate}</span> --%>
-						<span class="gig-comment-time">10 hours ago</span>
+						<span class="gig-comment-time">${element.postDate}</span>
 					</div>
 					<div class="gig-comment-header-left">
 					<span class="gig-comment-username">${element.postedBy.fullname}</span></div></div>

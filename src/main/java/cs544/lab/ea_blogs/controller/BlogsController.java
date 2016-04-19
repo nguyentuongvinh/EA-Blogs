@@ -2,7 +2,6 @@ package cs544.lab.ea_blogs.controller;
 
 
 import java.security.Principal;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
@@ -76,9 +75,9 @@ public class BlogsController {
 			@Valid @ModelAttribute("comment") String comment, Map<String, Object> map, 
 			Principal principal) {
 		Article article = articleService.findArticleById(articleId);
-		User user = userService.findByUsername("reader");
+		User user = userService.findByUsername("reader01");
 		
-		Comment cmt = new Comment(comment, Calendar.getInstance().getTime(), user, article);
+		Comment cmt = new Comment(comment, user, article);
 		commentService.saveComment(cmt);
 		
 		return "redirect:/article/{articleId}/";

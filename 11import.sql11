@@ -58,7 +58,7 @@ VALUES  ('Programming Careers', 'Careers news, information, and advice from Java
         ('Mobile Java', 'Mobile Java news, information, and how-to advice'),
         ('Java App Dev', 'Java App Dev news, information, and how-to advice')
         
-insert into `article` (`subject`, `subtitle`, `content`, `publish_date`, `published_by`, `category_id`)
+insert into `article` (`subject`, `subtilte`, `content`, `publish_date`, `published_by`, `category_id`)
 values ('I believe every human has a finite number of heartbeats. I dont intend to waste any of mine.', '', 'Content 1', curdate(), 2, 2),
 		('Science has not yet mastered prophecy', '', 'Content 2', curdate(), 2, 3),
         ('Failure is not an option', '', 'Content 3', curdate(), 1, 4),

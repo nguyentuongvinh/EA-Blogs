@@ -30,4 +30,8 @@ public class ArticleService {
 	public Article findArticleById(Integer articleId) {
 		return articleRepository.findArticleById(articleId);
 	}
+	
+	public void saveOrUpdate(Article article) {
+		articleRepository.save(article);
+	}
 }

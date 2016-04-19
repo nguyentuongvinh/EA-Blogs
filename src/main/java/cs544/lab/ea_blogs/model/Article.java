@@ -3,54 +3,75 @@ package cs544.lab.ea_blogs.model;
 import static javax.persistence.GenerationType.IDENTITY;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "article", catalog = "ea_blogs")
+@Table(name="article", catalog = "ea_blogs")
 public class Article implements Serializable {
+
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 6373069329047194876L;
+	
+	@Id
+	@GeneratedValue(strategy = IDENTITY)
 	private Integer id;
+	
+	@Column(nullable=false)
 	private String subject;
+	
+	@Column(nullable=false)
 	private String subtilte;
+	
+	@Column(nullable=false, columnDefinition = "TEXT")
 	private String content;
+	
+	@Lob
+	private byte[] image;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "publish_date")
 	private Date publishDate;
+	
+	@ManyToOne
+	@JoinColumn(name="published_by")
 	private User publishedBy;
+	
+	@ManyToOne
+	@JoinColumn(name="category_id")
 	private Category category;
-	private Set<Comment> comments = new HashSet<Comment>();
+	
+	@OneToMany(mappedBy = "article")
+	private List<Comment> comments = new ArrayList<Comment>();
 		
 	public Article() {
 	}
 
-	public Article(String subject, String content, Date publishDate, User publishedBy, Category category) {
+	
+	public Article(String subject, String subtilte, String content, byte[] image) {
 		super();
 		this.subject = subject;
+		this.subtilte = subtilte;
 		this.content = content;
-		this.publishDate = publishDate;
-		this.publishedBy = publishedBy;
-		this.category = category;
+		this.image = image;
+		this.publishDate = new Date();
 	}
 
-	@Id
-	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "id", unique = true, nullable = false)
 	public Integer getId() {
 		return id;
 	}
@@ -59,7 +80,6 @@ public class Article implements Serializable {
 		this.id = id;
 	}
 	
-	@Column(name = "subject", nullable=false)
 	public String getSubject() {
 		return subject;
 	}
@@ -68,7 +88,14 @@ public class Article implements Serializable {
 		this.subject = subject;
 	}
 	
-	@Column(name = "content", nullable=false)
+	public String getSubtilte() {
+		return subtilte;
+	}
+
+	public void setSubtilte(String subtilte) {
+		this.subtilte = subtilte;
+	}
+
 	public String getContent() {
 		return content;
 	}
@@ -77,8 +104,7 @@ public class Article implements Serializable {
 		this.content = content;
 	}
 	
-	@Temporal(TemporalType.DATE)
-	@Column(name = "publish_date", length = 10)
+
 	public Date getPublishDate() {
 		return publishDate;
 	}
@@ -87,8 +113,6 @@ public class Article implements Serializable {
 		this.publishDate = publishDate;
 	}
 	
-	@OneToOne
-	@JoinColumn(name="published_by")
 	public User getPublishedBy() {
 		return publishedBy;
 	}
@@ -97,8 +121,7 @@ public class Article implements Serializable {
 		this.publishedBy = publishedBy;
 	}
 	
-	@OneToOne
-	@JoinColumn(name="category_id")
+
 	public Category getCategory() {
 		return category;
 	}
@@ -107,21 +130,20 @@ public class Article implements Serializable {
 		this.category = category;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "article")
-	public Set<Comment> getComments() {
+	public List<Comment> getComments() {
 		return comments;
 	}
 
-	public void setComments(Set<Comment> comments) {
+	public void setComments(List<Comment> comments) {
 		this.comments = comments;
 	}
 
-	@Column(name = "subtitle")
-	public String getSubtilte() {
-		return subtilte;
+	public byte[] getImage() {
+		return image;
 	}
 
-	public void setSubtilte(String subtilte) {
-		this.subtilte = subtilte;
-	}	
+	public void setImage(byte[] image) {
+		this.image = image;
+	}
+
 }
