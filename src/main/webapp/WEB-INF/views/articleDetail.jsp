@@ -119,6 +119,7 @@
 		    <tr>
 		        <td width="50">
 		        	<div class="gig-comment-photo">
+		        		<%-- <img src="data:image/jpg;base64,${element.postedBy.photo}" /> --%>
 						<img class="gig-comment-img" alt="" src="https://s.yimg.com/dh/ap/social/profile/profile_b192.png" style="vertical-align: top; height: 37px;">
 					</div>
 		        </td>
