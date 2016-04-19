@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page import="java.text.SimpleDateFormat" %>  
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml11.dtd">
@@ -125,7 +126,8 @@
 		        	<div class="gig-comment-header">
 					<div class="gig-comment-header-right">
 						<span class="gig-comment-edited" style="display: none;">(edited)</span>
-						<span class="gig-comment-time">9 hours ago</span>
+						<%-- <span class="gig-comment-time">${element.postedDate}</span> --%>
+						<span class="gig-comment-time">10 hours ago</span>
 					</div>
 					<div class="gig-comment-header-left">
 					<span class="gig-comment-username">${element.postedBy.fullname}</span></div></div>
