@@ -57,9 +57,6 @@
 					  	<a href="<c:url value="/article/category/${element.id}/"/>">${element.name}</a>
 					  </li>
 					</c:forEach>
-					<li>
-                        <a href="${pageContext.request.contextPath}/loginRequest">Login</a>
-                    </li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->

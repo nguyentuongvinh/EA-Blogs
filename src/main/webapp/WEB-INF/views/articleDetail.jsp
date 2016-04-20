@@ -65,8 +65,9 @@
 	                    </li>
 					</sec:authorize>
 					<sec:authorize access="isAuthenticated()">
+						<sec:authentication property="principal" var="authentication"/>
 						<li>
-					    	<a href="<c:url value="/logout/" />">Logout</a>
+					    	<a href="${pageContext.request.contextPath}/logoutRequest">Logout (${authentication.username})</a>
 					    </li>
 					</sec:authorize>
                 </ul>
