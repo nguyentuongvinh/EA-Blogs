@@ -62,7 +62,7 @@ public class BlogsController {
 	@RequestMapping("/")
 	public String redirectRoot(Map<String, Object> map, HttpServletRequest request) {
 		map.put("categories", categoryService.findAll());
-		map.put("articles", articleService.findAll());
+		map.put("articles", articleService.findFiveLatestArticle());
 
 		return "main";
 	}
@@ -141,6 +141,7 @@ public class BlogsController {
 		model.addAttribute("loginRequestPage", request.getHeader("referer"));
 		model.addAttribute("error", false);
 		model.addAttribute("categories", categoryService.findAll());
+		
 		return "loginView";
 	}
 	
@@ -149,6 +150,7 @@ public class BlogsController {
 
 		model.addAttribute("error", true);
 		model.addAttribute("categories", categoryService.findAll());
+		
 		return "loginView";
 	}
 	
@@ -159,6 +161,7 @@ public class BlogsController {
 			model.addAttribute("loginRequestPage", request.getContextPath());
 		}
 		model.addAttribute("categories", categoryService.findAll());
+		
 		return "loginSuccess";
 	}
 	
@@ -168,13 +171,15 @@ public class BlogsController {
 	    if (auth != null){    
 	        new SecurityContextLogoutHandler().logout(request, response, auth);
 	    }
+	    
 	    return "redirect:/";
 	}
 	
-	@RequestMapping(value = "/user/{userId}/", method = RequestMethod.GET)
-	public String articlesByUserId(@PathVariable("userId") Integer userId, Map<String, Object> map) {
+	@RequestMapping(value = "/user/{publishedBy}/", method = RequestMethod.GET)
+	public String articlesByUserId(@PathVariable("publishedBy") Integer publishedBy, Map<String, Object> map) {
 		map.put("categories", categoryService.findAll());
-		map.put("articles", articleService.findByPostedId(userId));
+		map.put("articles", articleService.findByPublishedBy(publishedBy));
+		
 		return "articleByUserId";
 	}
 }

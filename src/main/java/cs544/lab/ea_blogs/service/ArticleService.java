@@ -35,7 +35,7 @@ public class ArticleService {
 		articleRepository.save(article);
 	}
 	
-	public List<Article> findByPostedId(Integer userId) {
-		return articleRepository.findArticlesPostedByPublishedBy(userId);
+	public List<Article> findByPublishedBy(Integer publishedBy) {
+		return articleRepository.findArticlesByPublishedById(publishedBy);
 	}
 }
