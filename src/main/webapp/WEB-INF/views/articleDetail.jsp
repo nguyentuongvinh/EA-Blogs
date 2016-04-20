@@ -86,7 +86,7 @@
                         <h1>${article.subject}</h1>
                         <h2 class="subheading">Problems look mighty small from 150 miles up</h2>
                         <%-- <span class="meta">Posted by <a href="#">${article.publishedBy.fullname}</a> on ${article.publishedBy.publishDate}</span> --%>
-                        <p class="meta">Posted by <a href="${pageContext.request.contextPath}/user/${article.publishedBy.id}">${article.publishedBy.fullname}</a> on ${article.publishDate}</p>
+                        <p class="meta">Posted by <a href="${pageContext.request.contextPath}/user/${article.publishedBy.id}/">${article.publishedBy.fullname}</a> on ${article.publishDate}</p>
                     </div>
                 </div>
             </div>

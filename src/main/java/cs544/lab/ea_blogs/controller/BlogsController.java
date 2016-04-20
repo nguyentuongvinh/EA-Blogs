@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
@@ -25,6 +27,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import cs544.lab.ea_blogs.model.Article;
 import cs544.lab.ea_blogs.model.Comment;
@@ -38,9 +41,10 @@ import cs544.lab.ea_blogs.service.UserService;
  * Handles requests for the application pages.
  */
 @Controller
+@SessionAttributes(value={"loginRequestPage", "categories"})
 public class BlogsController {
 	
-//	private static final Logger logger = LoggerFactory.getLogger(BlogsController.class);
+	private static final Logger logger = LoggerFactory.getLogger(BlogsController.class);
 
 	@Autowired
 	private ArticleService articleService;
@@ -131,8 +135,10 @@ public class BlogsController {
 	}
 	
 	@RequestMapping("/loginRequest")
-	public String showLoginView(Model model) {
+	public String showLoginView(HttpServletRequest request, Model model) {
 
+		logger.info("Login request from: {}", request.getHeader("referer"));
+		model.addAttribute("loginRequestPage", request.getHeader("referer"));
 		model.addAttribute("error", false);
 		model.addAttribute("categories", categoryService.findAll());
 		return "loginView";
@@ -146,13 +152,30 @@ public class BlogsController {
 		return "loginView";
 	}
 	
+	@RequestMapping("/loginSuccessTarget")
+	public String showLoginSuccessTarget(HttpServletRequest request, Model model) {
+
+		if (! model.containsAttribute("loginRequestPage")){
+			model.addAttribute("loginRequestPage", request.getContextPath());
+		}
+		model.addAttribute("categories", categoryService.findAll());
+		return "loginSuccess";
+	}
+	
 	@RequestMapping(value="/logout", method = RequestMethod.GET)
-	public String logoutPage (HttpServletRequest request, HttpServletResponse response) {
+	public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
 	    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 	    if (auth != null){    
 	        new SecurityContextLogoutHandler().logout(request, response, auth);
 	    }
 	    return "redirect:/";
 	}
+	
+	@RequestMapping(value = "/user/{userId}/", method = RequestMethod.GET)
+	public String articlesByUserId(@PathVariable("userId") Integer userId, Map<String, Object> map) {
+		map.put("categories", categoryService.findAll());
+		map.put("articles", articleService.findByPostedId(userId));
 
+		return "articleByUserId";
+	}
 }

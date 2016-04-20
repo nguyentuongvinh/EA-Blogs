@@ -101,7 +101,7 @@
                             ${element.subject}
                         </h2>
                     </a>
-                    <p class="post-meta">Posted by <a href="${pageContext.request.contextPath}/user/${article.publishedBy.id}">${element.publishedBy.fullname}</a> on ${element.publishDate}</p>
+                    <p class="post-meta">Posted by <a href="${pageContext.request.contextPath}/user/${element.publishedBy.id}/">${element.publishedBy.fullname}</a> on ${element.publishDate}</p>
                 </div>
                 <hr>
 				</c:forEach>
