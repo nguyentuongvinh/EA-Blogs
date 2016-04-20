@@ -11,14 +11,18 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cs544.lab.ea_blogs.model.Article;
@@ -35,7 +39,7 @@ import cs544.lab.ea_blogs.service.UserService;
 @Controller
 public class BlogsController {
 	
-//	private static final Logger logger = LoggerFactory.getLogger(BlogsController.class);
+	private static final Logger logger = LoggerFactory.getLogger(BlogsController.class);
 
 	@Autowired
 	private ArticleService articleService;
@@ -116,5 +120,20 @@ public class BlogsController {
 		return image;
 	}
 	
+	@RequestMapping("/loginRequest")
+	public String showLoginView(Model model) {
+
+		model.addAttribute("error", false);
+		model.addAttribute("categories", categoryService.findAll());
+		return "loginView";
+	}
+	
+	@RequestMapping("/loginFailed")
+	public String showLoginFailed(Model model) {
+
+		model.addAttribute("error", true);
+		model.addAttribute("categories", categoryService.findAll());
+		return "loginView";
+	}
 	
 }

@@ -85,12 +85,11 @@
  -->
 
 	<sec:http>
-		<sec:intercept-url pattern="/login" access="hasAnyRole('ROLE_READER', 'ROLE_PUBLISHER', 'ROLE_ADMIN')" />
 		<sec:intercept-url pattern="/**" access="hasAnyRole('ROLE_ANONYMOUS', 'ROLE_READER', 'ROLE_PUBLISHER', 'ROLE_ADMIN')" />
 
-		<sec:form-login login-processing-url="/login.action" login-page="/WEB-INF/views/login.jsp" 
-						authentication-failure-url="/WEB-INF/views/login.jsp?error=true" />
-		<sec:logout />
+		<sec:form-login login-processing-url="/login.action" login-page="/loginRequest" 
+						authentication-failure-url="/loginFailed" />
+		<sec:logout logout-url="/logout.action" />
 		<sec:csrf disabled="true"/>
 	</sec:http>
 
