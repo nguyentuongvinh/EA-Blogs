@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import cs544.lab.ea_blogs.model.Article;
 import cs544.lab.ea_blogs.model.Comment;
@@ -37,6 +38,7 @@ import cs544.lab.ea_blogs.service.UserService;
  * Handles requests for the application pages.
  */
 @Controller
+@SessionAttributes(value={"loginRequestPage", "categories"})
 public class BlogsController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(BlogsController.class);
@@ -121,8 +123,10 @@ public class BlogsController {
 	}
 	
 	@RequestMapping("/loginRequest")
-	public String showLoginView(Model model) {
+	public String showLoginView(HttpServletRequest request, Model model) {
 
+		logger.info("Login request from: {}", request.getHeader("referer"));
+		model.addAttribute("loginRequestPage", request.getHeader("referer"));
 		model.addAttribute("error", false);
 		model.addAttribute("categories", categoryService.findAll());
 		return "loginView";
@@ -134,6 +138,16 @@ public class BlogsController {
 		model.addAttribute("error", true);
 		model.addAttribute("categories", categoryService.findAll());
 		return "loginView";
+	}
+	
+	@RequestMapping("/loginSuccessTarget")
+	public String showLoginSuccessTarget(HttpServletRequest request, Model model) {
+
+		if (! model.containsAttribute("loginRequestPage")){
+			model.addAttribute("loginRequestPage", request.getContextPath());
+		}
+		model.addAttribute("categories", categoryService.findAll());
+		return "loginSuccess";
 	}
 	
 }

@@ -85,6 +85,8 @@
 
     <!-- Login Form -->
     <div align="center">
+
+
 	<form method="post" action="${pageContext.request.contextPath}/login.action">
 		<table cellpadding="10">
 			<tr>
@@ -103,7 +105,6 @@
 		</table>
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 	</form>
-	Login errFlag: ${error}
 	</div>
 
     <!-- Footer -->
