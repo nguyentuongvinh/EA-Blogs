@@ -170,11 +170,4 @@ public class BlogsController {
 	    }
 	    return "redirect:/";
 	}
-	
-	@RequestMapping(value = "/user/{userId}/", method = RequestMethod.GET)
-	public String articlesByUserId(@PathVariable("userId") Integer userId, Map<String, Object> map) {
-		map.put("categories", categoryService.findAll());
-		map.put("articles", articleService.findByPostedId(userId));
-		return "articleByUserId";
-	}
 }
