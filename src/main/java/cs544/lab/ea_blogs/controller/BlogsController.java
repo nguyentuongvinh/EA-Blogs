@@ -175,7 +175,6 @@ public class BlogsController {
 	public String articlesByUserId(@PathVariable("userId") Integer userId, Map<String, Object> map) {
 		map.put("categories", categoryService.findAll());
 		map.put("articles", articleService.findByPostedId(userId));
-
 		return "articleByUserId";
 	}
 }
