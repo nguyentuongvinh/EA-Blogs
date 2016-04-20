@@ -58,9 +58,17 @@
 					  	<a href="<c:url value="/article/category/${element.id}/"/>">${element.name}</a>
 					  </li>
 					</c:forEach>
-					<li>
-                        <a href="${pageContext.request.contextPath}/loginRequest">Login</a>
-                    </li>
+
+                    <sec:authorize access="isAnonymous()">
+						<li>
+	                        <a href="${pageContext.request.contextPath}/loginRequest">Login</a>
+	                    </li>
+					</sec:authorize>
+					<sec:authorize access="isAuthenticated()">
+						<li>
+					    	<a href="<c:url value="/logout/" />">Logout</a>
+					    </li>
+					</sec:authorize>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
