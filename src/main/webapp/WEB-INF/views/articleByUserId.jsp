@@ -82,9 +82,11 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="site-heading">
-                        <h1>Maharishi Universtiy of Management</h1>
+                        <h1>${userEntity.fullname}</h1>
+                        <h2>${userEntity.email}</h2>
                         <hr class="small">
-                        <span class="subheading">A Blog by MUM for the Enterprize Project</span>
+                        <span class="subheading">${userEntity.aboutUser}</span><br />
+                        <img src="${pageContext.request.contextPath}/userPhoto/${userEntity.id}" />
                     </div>
                 </div>
             </div>
@@ -150,7 +152,7 @@
                             </a>
                         </li>
                     </ul>
-                    <p class="copyright text-muted">Copyright &copy; Your Website 2014</p>
+                    <p class="copyright text-muted">Copyright &copy; EA Blogs 2016</p>
                 </div>
             </div>
         </div>

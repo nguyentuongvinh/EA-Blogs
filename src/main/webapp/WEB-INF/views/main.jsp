@@ -95,6 +95,18 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            	
+            	<sec:authorize access="isAuthenticated()">
+					<sec:authentication property="principal" var="authentication"/>
+					<div align="right">Welcome <font color="blue">${authentication.username}</font></div>
+					<ul class="pager">
+                    	<li class="next">
+                        	<a href="${pageContext.request.contextPath}/newArticle">New Article...</a>
+                    	</li>
+                	</ul>
+				</sec:authorize>
+            	
+            	
             	<c:forEach items="${articles}" var="element"> 
                 <div class="post-preview">
                     <a href="${pageContext.request.contextPath}/article/${element.id}/">
@@ -150,7 +162,7 @@
                             </a>
                         </li>
                     </ul>
-                    <p class="copyright text-muted">Copyright &copy; Your Website 2014</p>
+                    <p class="copyright text-muted">Copyright &copy; EA Blogs 2016</p>
                 </div>
             </div>
         </div>

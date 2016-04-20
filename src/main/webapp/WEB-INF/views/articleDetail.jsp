@@ -114,7 +114,7 @@
 			<h4>Leave a Comment:</h4>
 	        <form role="form" action="postComment/" method="post">
 	            <div class="form-group">
-	                <textarea name="comment" class="form-control" rows="3"></textarea>
+	                <textarea name="comment" class="form-control" rows="3" required="required"></textarea>
 	            </div>
 	             
 	            <button type="submit" class="btn btn-primary">Submit</button>	            
@@ -190,7 +190,7 @@
                             </a>
                         </li>
                     </ul>
-                    <p class="copyright text-muted">Copyright &copy; Your Website 2014</p>
+                    <p class="copyright text-muted">Copyright &copy; EA Blogs 2016</p>
                 </div>
             </div>
         </div>
