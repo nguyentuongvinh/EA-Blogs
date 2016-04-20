@@ -30,7 +30,7 @@ import cs544.lab.ea_blogs.service.CommentService;
 import cs544.lab.ea_blogs.service.UserService;
 
 /**
- * Handles requests for the application home page.
+ * Handles requests for the application pages.
  */
 @Controller
 public class BlogsController {
@@ -115,4 +115,6 @@ public class BlogsController {
 		
 		return image;
 	}
+	
+	
 }
