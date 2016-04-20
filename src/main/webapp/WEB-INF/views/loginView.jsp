@@ -57,9 +57,6 @@
 					  	<a href="<c:url value="/article/category/${element.id}/"/>">${element.name}</a>
 					  </li>
 					</c:forEach>
-					<li>
-                        <a href="${pageContext.request.contextPath}/loginRequest">Login</a>
-                    </li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -86,7 +83,9 @@
     <!-- Login Form -->
     <div align="center">
 
-
+	<c:if test="${error eq true}">
+		<p><font color="red">Wrong username or password, login failed!</font></p>
+	</c:if>
 	<form method="post" action="${pageContext.request.contextPath}/login.action">
 		<table cellpadding="10">
 			<tr>

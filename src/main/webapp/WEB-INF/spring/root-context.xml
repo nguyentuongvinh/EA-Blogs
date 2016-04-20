@@ -105,6 +105,8 @@
 	</bean>
  -->
 
+<!-- 	<bean id="myLogoutSuccessHandler" class="org.springframework.security.web.authentication.logout.SimpleUrlLogoutSuccessHandler" /> -->
+
 	<sec:http>
 		<sec:intercept-url pattern="/**" access="hasAnyRole('ROLE_ANONYMOUS', 'ROLE_READER', 'ROLE_PUBLISHER', 'ROLE_ADMIN')" />
 
@@ -112,6 +114,7 @@
 						authentication-failure-url="/loginFailed" 
 						default-target-url="/loginSuccessTarget" always-use-default-target="true" />
 
+		<sec:logout logout-url="/logoutRequest" logout-success-url="/logoutSuccessTarget" />
 		<sec:csrf disabled="true"/>
 	</sec:http>
 

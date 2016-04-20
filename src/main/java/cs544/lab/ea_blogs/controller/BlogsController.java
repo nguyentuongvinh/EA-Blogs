@@ -41,7 +41,7 @@ import cs544.lab.ea_blogs.service.UserService;
  * Handles requests for the application pages.
  */
 @Controller
-@SessionAttributes(value={"loginRequestPage", "categories"})
+@SessionAttributes(value={"loginRequestPage", "logoutRequestPage", "categories"})
 public class BlogsController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(BlogsController.class);
@@ -141,7 +141,6 @@ public class BlogsController {
 		model.addAttribute("loginRequestPage", request.getHeader("referer"));
 		model.addAttribute("error", false);
 		model.addAttribute("categories", categoryService.findAll());
-		
 		return "loginView";
 	}
 	
@@ -150,7 +149,6 @@ public class BlogsController {
 
 		model.addAttribute("error", true);
 		model.addAttribute("categories", categoryService.findAll());
-		
 		return "loginView";
 	}
 	
@@ -161,17 +159,25 @@ public class BlogsController {
 			model.addAttribute("loginRequestPage", request.getContextPath());
 		}
 		model.addAttribute("categories", categoryService.findAll());
-		
 		return "loginSuccess";
 	}
 	
+	@RequestMapping("/logoutSuccessTarget")
+	public String showLogoutSuccessTarget(HttpServletRequest request, Model model) {
+
+		logger.info("Logout request from: {}", request.getHeader("referer"));
+		model.addAttribute("logoutRequestPage", request.getHeader("referer"));
+		model.addAttribute("categories", categoryService.findAll());
+		return "logoutSuccess";
+	}
+	
+	
 	@RequestMapping(value="/logout", method = RequestMethod.GET)
-	public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
+	public String logoutPage (HttpServletRequest request, HttpServletResponse response) {
 	    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-	    if (auth != null){    
+	    if (auth != null){
 	        new SecurityContextLogoutHandler().logout(request, response, auth);
 	    }
-	    
 	    return "redirect:/";
 	}
 	
