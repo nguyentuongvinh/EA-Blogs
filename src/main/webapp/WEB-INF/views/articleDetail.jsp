@@ -1,5 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page import="java.text.SimpleDateFormat" %>  
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml11.dtd">
@@ -99,16 +100,20 @@
 	<hr>
 	
 	<!-- Comment -->
-	<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"> 
-		<h4>Leave a Comment:</h4>
-        <form role="form" action="postComment/" method="post">
-            <div class="form-group">
-                <textarea name="comment" class="form-control" rows="3"></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-        </form>
-    </div>
+	<sec:authorize access="isAuthenticated()">
+		<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"> 
+			<h4>Leave a Comment:</h4>
+	        <form role="form" action="postComment/" method="post">
+	            <div class="form-group">
+	                <textarea name="comment" class="form-control" rows="3"></textarea>
+	            </div>
+	             
+	            <button type="submit" class="btn btn-primary">Submit</button>	            
+	            
+	            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+	        </form>
+	    </div>
+	</sec:authorize>
 
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
         <h5>${NumOfComments} Comments</h5>
