@@ -62,7 +62,7 @@ public class BlogsController {
 	@RequestMapping("/")
 	public String redirectRoot(Map<String, Object> map, HttpServletRequest request) {
 		map.put("categories", categoryService.findAll());
-		map.put("articles", articleService.findAll());
+		map.put("articles", articleService.findFiveLatestArticle());
 
 		return "main";
 	}
@@ -175,9 +175,17 @@ public class BlogsController {
 	@RequestMapping(value="/logout", method = RequestMethod.GET)
 	public String logoutPage (HttpServletRequest request, HttpServletResponse response) {
 	    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-	    if (auth != null){    
+	    if (auth != null){
 	        new SecurityContextLogoutHandler().logout(request, response, auth);
 	    }
 	    return "redirect:/";
+	}
+	
+	@RequestMapping(value = "/user/{publishedBy}/", method = RequestMethod.GET)
+	public String articlesByUserId(@PathVariable("publishedBy") Integer publishedBy, Map<String, Object> map) {
+		map.put("categories", categoryService.findAll());
+		map.put("articles", articleService.findByPublishedBy(publishedBy));
+		
+		return "articleByUserId";
 	}
 }

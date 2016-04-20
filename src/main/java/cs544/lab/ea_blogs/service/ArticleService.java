@@ -34,4 +34,8 @@ public class ArticleService {
 	public void saveOrUpdate(Article article) {
 		articleRepository.save(article);
 	}
+	
+	public List<Article> findByPublishedBy(Integer publishedBy) {
+		return articleRepository.findArticlesByPublishedById(publishedBy);
+	}
 }

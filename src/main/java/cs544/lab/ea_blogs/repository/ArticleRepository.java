@@ -20,7 +20,7 @@ import cs544.lab.ea_blogs.model.Article;
 public interface ArticleRepository extends JpaRepository<Article, Integer> {
 	public List<Article> findArticleByCategoryId(Integer categoryId);
 	
-	public List<Article> findArticlesPostedByPublishedBy(Integer publishedBy);
+	public List<Article> findArticlesByPublishedById(Integer publishedBy);
 	
 	public List<Article> findFirst5ByOrderByPublishDateDesc();
 	

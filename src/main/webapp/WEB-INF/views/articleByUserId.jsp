@@ -12,11 +12,12 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
+
     <!-- Bootstrap Core CSS -->
-	<link rel="stylesheet" href="resources/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="../../resources/css/bootstrap.min.css" />
 	
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="resources/css/clean-blog.min.css" />
+    <link rel="stylesheet" href="../../resources/css/clean-blog.min.css" />
 
     <!-- Custom Fonts -->
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -75,7 +76,7 @@
 
     <!-- Page Header -->
     <!-- Set your background image for this header on the line below. -->
-    <header class="intro-header" style="background-image: url('resources/img/home-bg.jpg')">
+    <header class="intro-header" style="background-image: url('../../resources/img/home-bg.jpg')">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
@@ -100,7 +101,7 @@
                             ${element.subject}
                         </h2>
                     </a>
-                    <p class="post-meta">Posted by <a href="${pageContext.request.contextPath}/user/${element.publishedBy.id}/">${element.publishedBy.fullname}</a> on ${element.publishDate}</p>
+                    <p class="post-meta">Posted by <a href="${pageContext.request.contextPath}/user/${element.publishedBy.id}">${element.publishedBy.fullname}</a> on ${element.publishDate}</p>
                 </div>
                 <hr>
 				</c:forEach>
@@ -155,12 +156,12 @@
     </footer>
 
     <!-- jQuery -->
-    <script src="resources/js/jquery.js"></script>
+    <script src="../../resources/js/jquery.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="resources/js/bootstrap.min.js"></script>
+    <script src="../../resources/js/bootstrap.min.js"></script>
 
     <!-- Custom Theme JavaScript -->
-    <script src="resources/js/clean-blog.min.js"></script>
+    <script src="../../resources/js/clean-blog.min.js"></script>
 </body>
 </html>
