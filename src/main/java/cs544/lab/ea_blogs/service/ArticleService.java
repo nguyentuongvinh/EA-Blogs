@@ -1,5 +1,6 @@
 package cs544.lab.ea_blogs.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,5 +38,9 @@ public class ArticleService {
 	
 	public List<Article> findByPublishedBy(Integer publishedBy) {
 		return articleRepository.findArticlesByPublishedById(publishedBy);
+	}
+	
+	public List<Article> findArticleByPublishDate(Date date) {
+		return articleRepository.findArticleByPublishDate(date);
 	}
 }

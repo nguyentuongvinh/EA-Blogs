@@ -1,5 +1,6 @@
 package cs544.lab.ea_blogs.repository;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.cache.annotation.Cacheable;
@@ -28,4 +29,5 @@ public interface ArticleRepository extends JpaRepository<Article, Integer> {
 	@Query("UPDATE Article a SET a.image=:image WHERE a.id=:id")
 	int updateImageByArticleId(@Param("id") Integer id, @Param("image") byte[] image);
 	
+	public List<Article> findArticleByPublishDate(Date date);
 }

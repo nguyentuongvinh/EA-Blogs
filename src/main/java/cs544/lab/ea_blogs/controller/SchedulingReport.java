@@ -9,8 +9,8 @@ public class SchedulingReport {
 	@Autowired
 	private MailSender mailSender;
 	
-//	@Scheduled(cron="0 0/1 * * * *")
-	@Scheduled(cron="0 0 24 * * *")
+	@Scheduled(cron="0 0/1 * * * *")
+//	@Scheduled(cron="0 0 24 * * *")
 	public void reportNumOfArticlesPosted() {
 		System.out.println("Scheduling is running");
 		
@@ -18,7 +18,7 @@ public class SchedulingReport {
 		smm.setFrom("eablobtest@gmail.com");
 		smm.setTo("phaolovinh@gmail.com");
 		smm.setSubject("EA Blog Article Report");
-		smm.setText("Report...");
+		smm.setText("This is scheduling task report!!!");
 		
 		mailSender.send(smm);
 	}
