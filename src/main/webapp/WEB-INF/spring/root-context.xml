@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:security="http://www.springframework.org/schema/security"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:sec="http://www.springframework.org/schema/security" xmlns:jpa="http://www.springframework.org/schema/data/jpa"
 	xmlns:tx="http://www.springframework.org/schema/tx"
@@ -86,10 +85,13 @@
  -->
 
 	<sec:http>
+		<sec:intercept-url pattern="/login" access="hasAnyRole('ROLE_READER', 'ROLE_PUBLISHER', 'ROLE_ADMIN')" />
 		<sec:intercept-url pattern="/**" access="hasAnyRole('ROLE_ANONYMOUS', 'ROLE_READER', 'ROLE_PUBLISHER', 'ROLE_ADMIN')" />
-		<sec:form-login />
+
+		<sec:form-login login-processing-url="/login.action" login-page="/WEB-INF/views/login.jsp" 
+						authentication-failure-url="/WEB-INF/views/login.jsp?error=true" />
 		<sec:logout />
-		<security:csrf disabled="true"/>
+		<sec:csrf disabled="true"/>
 	</sec:http>
 
 	<sec:authentication-manager>

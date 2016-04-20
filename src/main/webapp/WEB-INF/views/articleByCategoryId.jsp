@@ -11,7 +11,6 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Clean Blog</title>
 
     <!-- Bootstrap Core CSS -->
 	<link rel="stylesheet" href="../../../resources/css/bootstrap.min.css" />
