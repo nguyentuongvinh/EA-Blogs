@@ -150,7 +150,7 @@
                             </a>
                         </li>
                     </ul>
-                    <p class="copyright text-muted">Copyright &copy; Your Website 2014</p>
+                    <p class="copyright text-muted">Copyright &copy; EA Blogs 2016</p>
                 </div>
             </div>
         </div>
