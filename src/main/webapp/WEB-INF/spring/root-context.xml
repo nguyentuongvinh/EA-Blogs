@@ -88,8 +88,9 @@
 		<sec:intercept-url pattern="/**" access="hasAnyRole('ROLE_ANONYMOUS', 'ROLE_READER', 'ROLE_PUBLISHER', 'ROLE_ADMIN')" />
 
 		<sec:form-login login-processing-url="/login.action" login-page="/loginRequest" 
-						authentication-failure-url="/loginFailed" />
-		<sec:logout logout-url="/logout.action" />
+						authentication-failure-url="/loginFailed" 
+						default-target-url="/loginSuccessTarget" always-use-default-target="true" />
+
 		<sec:csrf disabled="true"/>
 	</sec:http>
 
