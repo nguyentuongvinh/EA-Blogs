@@ -3,6 +3,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:sec="http://www.springframework.org/schema/security" xmlns:jpa="http://www.springframework.org/schema/data/jpa"
 	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:task="http://www.springframework.org/schema/task"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans 
 	http://www.springframework.org/schema/beans/spring-beans.xsd 
 	http://www.springframework.org/schema/context 
@@ -12,7 +13,9 @@
 	http://www.springframework.org/schema/tx 
 	http://www.springframework.org/schema/tx/spring-tx.xsd 
 	http://www.springframework.org/schema/security 
-    http://www.springframework.org/schema/security/spring-security.xsd">
+    http://www.springframework.org/schema/security/spring-security.xsd
+    http://www.springframework.org/schema/task
+    http://www.springframework.org/schema/task/spring-task-4.0.xsd">
 
 	<!-- Root Context: defines shared resources visible to all other web components -->
 
@@ -53,6 +56,24 @@
 	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
 		<property name="entityManagerFactory" ref="entityManagerFactory" />
 	</bean>
+	
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="host" value="smtp.gmail.com" />
+        <property name="port" value="587" />
+        <property name="username" value="eablogtest@gmail.com" />
+        <property name="password" value="12345678@@" />
+        <property name="javaMailProperties">
+            <props>
+                <prop key="mail.transport.protocol">smtp</prop>
+                <prop key="mail.smtp.auth">true</prop>
+                <prop key="mail.smtp.starttls.enable">true</prop>
+            </props>
+        </property>
+    </bean>
+	
+	<bean id="schedulingReport" class="cs544.lab.ea_blogs.controller.SchedulingReport"/>
+	<task:annotation-driven scheduler="mySchedule"/>
+	<task:scheduler id="mySchedule" pool-size="10"/>
 
 	<tx:annotation-driven transaction-manager="transactionManager" />
 
