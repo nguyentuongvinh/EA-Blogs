@@ -109,7 +109,7 @@
 	
 	<!-- Comment -->
 	<sec:authorize access="isAnonymous()">
-		<div align="center">
+		<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1" align="center">
 		<a href="${pageContext.request.contextPath}/loginRequest">
 			<u><h2>Login to post a comment...</h2></u>
 		</a>
