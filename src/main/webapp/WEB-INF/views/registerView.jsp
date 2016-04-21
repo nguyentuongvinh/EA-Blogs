@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ page import="java.text.SimpleDateFormat" %>  
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -82,39 +83,46 @@
     <!-- Login Form -->
     <div align="center">
 
-	<c:if test="${error eq true}">
-		<p><font color="red">Wrong username or password, login failed!</font></p>
-	</c:if>
-	<c:if test="${regFlag eq true}">
-		<p><font color="red"><h2>Register success, please login!</h2></font></p>
-	</c:if>
-	<form method="post" action="${pageContext.request.contextPath}/login.action">
+	<form:form modelAttribute="user" action="${pageContext.request.contextPath}/register" method="post">
 		<table cellpadding="10">
 			<tr>
 				<td><label>User Name:</label></td>
-				<td><input type="text" name="username" required="required" placeholder="username" /></td>
+				<td><form:input path="username" /></td>
+				<td><font color="red"><form:errors path="username" /></font></td>
 			</tr>
-			<tr><td colspan="2" height="20">  </td></tr>
+			<tr><td colspan="3" height="20">  </td></tr>
       		<tr>
 				<td><label>Password:</label></td>
-				<td><input type="password" name="password" required="required" placeholder="password" /></td>
+				<td><form:password path="password" /></td>
+				<td><font color="red"><form:errors path="password" /></font></td>
 			</tr>
-			<tr><td colspan="2" height="20">  </td></tr>
+			<tr><td colspan="3" height="20">  </td></tr>
 			<tr>
-				<td colspan="2" align="center"><input type="submit" value="Login" /></td>
+				<td><label>Email:</label></td>
+				<td><form:input path="email" /></td>
+				<td><font color="red"><form:errors path="email" /></font></td>
 			</tr>
-			<tr><td colspan="2" height="20">  </td></tr>
+			<tr><td colspan="3" height="20">  </td></tr>
 			<tr>
-				<td colspan="2" align="center">Don't have account?</td>
+				<td><label>Full Name:</label></td>
+				<td><form:input path="fullname" /></td>
+				<td><font color="red"><form:errors path="fullname" /></font></td>
 			</tr>
+			<tr><td colspan="3" height="20">  </td></tr>
 			<tr>
-				<td colspan="2" align="center">
-					<a href="${pageContext.request.contextPath}/register"><h2><font color="blue">Register</font></h2></a>
-				</td>
+				<td><label>About yourself:</label></td>
+				<td><form:textarea path="aboutUser" /></td>
+				<td><font color="red"><form:errors path="aboutUser" /></font></td>
+			</tr>
+			<tr><td colspan="3" height="20">  </td></tr>
+			<tr><td colspan="3" height="20"><font color="blue">User role will be ROLE_READER and ROLE_PUBLISHER by default.</font></td></tr>
+			<tr><td colspan="3" height="20">  </td></tr>
+			<tr>
+				<td colspan="3" align="center"><input type="submit" value="Register" /></td>
 			</tr>
 		</table>
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-	</form>
+	</form:form>
 	</div>
 
     <!-- Footer -->

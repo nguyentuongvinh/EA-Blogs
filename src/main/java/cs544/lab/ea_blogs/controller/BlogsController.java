@@ -24,6 +24,7 @@ import org.springframework.security.web.authentication.logout.SecurityContextLog
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,10 +37,12 @@ import org.springframework.web.multipart.MultipartFile;
 import cs544.lab.ea_blogs.model.Article;
 import cs544.lab.ea_blogs.model.Comment;
 import cs544.lab.ea_blogs.model.User;
+import cs544.lab.ea_blogs.model.UserRole;
 import cs544.lab.ea_blogs.service.ArticleService;
 import cs544.lab.ea_blogs.service.CategoryService;
 import cs544.lab.ea_blogs.service.CommentService;
 import cs544.lab.ea_blogs.service.UserService;
+
 
 /**
  * Handles requests for the application pages.
@@ -138,11 +141,13 @@ public class BlogsController {
 	}
 	
 	@RequestMapping("/loginRequest")
-	public String showLoginView(HttpServletRequest request, Model model) {
+	public String showLoginView(HttpServletRequest request, Model model, 
+			@RequestParam(name="regFlag", required=false, defaultValue="false") Boolean regFlag) {
 
 		logger.info("Login request from: {}", request.getHeader("referer"));
 		model.addAttribute("loginRequestPage", request.getHeader("referer"));
 		model.addAttribute("error", false);
+		model.addAttribute("regFlag", regFlag);
 		model.addAttribute("categories", categoryService.findAll());
 		return "loginView";
 	}
@@ -203,27 +208,57 @@ public class BlogsController {
 	@RequestMapping(value = "/publishArticle", method = RequestMethod.POST)
 	public String postComment(@RequestParam("username") String username, @RequestParam("subject") String subject, 
 			@RequestParam("subtitle") String subtitle, @RequestParam("categoryId") Integer categoryId,
-			@RequestParam("content") String content, @RequestParam("picFile") MultipartFile picFile) {
+			@RequestParam("content") String content, @RequestParam(name="picFile", required=false) MultipartFile picFile) {
 		
-	    ByteArrayOutputStream baOutput = new ByteArrayOutputStream();
-	    byte[] buffer = new byte[4096];
-	    int n;
-	    try {
-	    	InputStream inputStream = picFile.getInputStream();
-			while ((n=inputStream.read(buffer))>0) {
-				baOutput.write(buffer, 0, n);
+		byte[] picBytes = null;
+		if (picFile != null){
+			ByteArrayOutputStream baOutput = new ByteArrayOutputStream();
+		    byte[] buffer = new byte[4096];
+		    int n;
+		    try {
+		    	InputStream inputStream = picFile.getInputStream();
+				while ((n=inputStream.read(buffer))>0) {
+					baOutput.write(buffer, 0, n);
+				}
+				picBytes = baOutput.toByteArray();
+			}
+		    catch (IOException e) {
+				logger.error("Upload pic file ERROR: filename: {}", picFile.getOriginalFilename());
 			}
 		}
-	    catch (IOException e) {
-			logger.error("Upload pic file ERROR: filename: {}", picFile.getOriginalFilename());
-		}
-
+		
 	    Article article = new Article(userService.findByUsername(username), subject, subtitle, 
-	    		categoryService.findById(categoryId), content, baOutput.toByteArray());
+	    		categoryService.findById(categoryId), content, picBytes);
 
 	    articleService.saveOrUpdate(article);
 	    int articleId = article.getId();
 		logger.info("Publish article by: {}, then redirect to articleId: {}", username, articleId);
 		return "redirect:/article/" + articleId + "/";
 	}
+	
+	@RequestMapping(value="/register", method=RequestMethod.GET)
+	public String showRegisterView(@ModelAttribute("user") User user, Model model) {
+
+		model.addAttribute("categories", categoryService.findAll());
+		return "registerView";
+	}
+	
+	@RequestMapping(value="/register", method=RequestMethod.POST)
+	public String showRegisterSuccessView(@Valid User user, BindingResult br, Model model) {
+
+		model.addAttribute("categories", categoryService.findAll());
+		String view = "redirect:/loginRequest";
+		if (br.hasErrors())
+			view = "registerView";
+		else{
+			user.getRoleSet().add(UserRole.ROLE_READER);
+			user.getRoleSet().add(UserRole.ROLE_PUBLISHER);
+			userService.saveOrUpdate(user);
+			model.addAttribute("regFlag", true);
+			logger.info("Register success, userID: {}", user.getId());
+		}
+
+		return view;
+	}
+	
 }

@@ -98,7 +98,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                	<img src="${pageContext.request.contextPath}/articleImage/${article.id}" />
+                	<img src="${pageContext.request.contextPath}/articleImage/${article.id}" onerror="this.style.display='none'" />
                     <p>${article.content}</p>
              </div>
             </div>

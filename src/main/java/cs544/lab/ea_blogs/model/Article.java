@@ -15,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -55,6 +56,7 @@ public class Article implements Serializable {
 	private Category category;
 	
 	@OneToMany(mappedBy = "article")
+	@OrderBy("postDate")
 	private List<Comment> comments = new ArrayList<Comment>();
 		
 	public Article() {

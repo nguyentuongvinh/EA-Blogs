@@ -128,6 +128,9 @@
  					<td>Image Path:</td>
 					<td align="center"><input type="file" name="picFile" /></td>
 				</tr>
+				<tr>
+					<td colspan="2" align="center"><font color="red">Only JPEG file, max file upload size is 1MB</font></td>
+				</tr>
 				<tr><td colspan="2" height="20">  </td></tr>
 				<tr>
 					<td colspan="2"><input type="submit" value="Publish" /></td>

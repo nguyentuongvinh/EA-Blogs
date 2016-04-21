@@ -18,7 +18,7 @@ public class UserService {
 	}
 	
 	public void saveOrUpdate(User user) {
-		userRepository.save(user);
+		userRepository.saveAndFlush(user);
 	}
 	
 	public User findByUserId(Integer Id) {
