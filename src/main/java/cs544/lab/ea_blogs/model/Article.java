@@ -61,10 +61,13 @@ public class Article implements Serializable {
 	}
 
 	
-	public Article(String subject, String subtitle, String content, byte[] image) {
+	public Article(User publishedBy, String subject, String subtitle, 
+			Category category, String content, byte[] image) {
 		super();
+		this.publishedBy = publishedBy;
 		this.subject = subject;
 		this.subtitle = subtitle;
+		this.category = category;
 		this.content = content;
 		this.image = image;
 		this.publishDate = new Date();

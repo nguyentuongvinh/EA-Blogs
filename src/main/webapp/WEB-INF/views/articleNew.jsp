@@ -95,16 +95,19 @@
 		<div align="center">
 			<table>
 				<tr>
-					<td colspan="2">Username: ${authentication.username}</td>
+					<td colspan="2">Username: <font color="blue">&nbsp;${authentication.username}</font></td>
 				</tr>
+				<tr><td colspan="2" height="20">  </td></tr>
 				<tr>
 					<td>Subject:</td>
-					<td><input type="text" name="subject" width="60" required="required" placeholder="A subject for your article..." /></td>
+					<td><input type="text" name="subject" size="60" required="required" placeholder="The subject of your article..." /></td>
 			 	</tr>
+			 	<tr><td colspan="2" height="20">  </td></tr>
 				<tr>
-			 		<td>Sub Title:</td>
-					<td><input type="text" name="subtitle" width="60" required="required" placeholder="A subtitle for your article..." /></td>
+			 		<td>Subtitle:</td>
+					<td><input type="text" name="subtitle" size="60" required="required" placeholder="The subtitle..." /></td>
 				</tr>
+				<tr><td colspan="2" height="20">  </td></tr>
 				<tr>
 					<td>Category:</td>
 					<td>
@@ -115,14 +118,17 @@
 						</select>
 					</td>
 			 	</tr>
+			 	<tr><td colspan="2" height="20">  </td></tr>
 				<tr>
 					<td>Content:</td>
 					<td><textarea name="content" rows="20" cols="60" required="required" placeholder="The content..." ></textarea></td>
 				</tr>
+				<tr><td colspan="2" height="20">  </td></tr>
 				<tr>
  					<td>Image Path:</td>
-					<td><input type="file" name="picfile" /></td>
+					<td align="center"><input type="file" name="picFile" /></td>
 				</tr>
+				<tr><td colspan="2" height="20">  </td></tr>
 				<tr>
 					<td colspan="2"><input type="submit" value="Publish" /></td>
 				</tr>

@@ -1,8 +1,10 @@
 package cs544.lab.ea_blogs.controller;
 
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.security.Principal;
 import java.util.List;
@@ -29,6 +31,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
 
 import cs544.lab.ea_blogs.model.Article;
 import cs544.lab.ea_blogs.model.Comment;
@@ -198,13 +201,29 @@ public class BlogsController {
 	}
 	
 	@RequestMapping(value = "/publishArticle", method = RequestMethod.POST)
-	public String postComment(@RequestParam("movieId") int movieId, @RequestParam("username") String username,
-			@RequestParam("title") String title, @RequestParam("content") String content,
-			@RequestParam("rating") float rating) {
-		logger.info("Post comment by: {}, then redirect to movieId: {}", username, movieId);
-
-//		commentDao.saveAndFlush(comment);
+	public String postComment(@RequestParam("username") String username, @RequestParam("subject") String subject, 
+			@RequestParam("subtitle") String subtitle, @RequestParam("categoryId") Integer categoryId,
+			@RequestParam("content") String content, @RequestParam("picFile") MultipartFile picFile) {
 		
-		return "redirect:/article/{articleId}/";
+	    ByteArrayOutputStream baOutput = new ByteArrayOutputStream();
+	    byte[] buffer = new byte[4096];
+	    int n;
+	    try {
+	    	InputStream inputStream = picFile.getInputStream();
+			while ((n=inputStream.read(buffer))>0) {
+				baOutput.write(buffer, 0, n);
+			}
+		}
+	    catch (IOException e) {
+			logger.error("Upload pic file ERROR: filename: {}", picFile.getOriginalFilename());
+		}
+
+	    Article article = new Article(userService.findByUsername(username), subject, subtitle, 
+	    		categoryService.findById(categoryId), content, baOutput.toByteArray());
+
+	    articleService.saveOrUpdate(article);
+	    int articleId = article.getId();
+		logger.info("Publish article by: {}, then redirect to articleId: {}", username, articleId);
+		return "redirect:/article/" + articleId + "/";
 	}
 }

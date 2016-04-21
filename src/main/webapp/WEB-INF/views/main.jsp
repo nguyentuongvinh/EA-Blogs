@@ -97,12 +97,14 @@
             	
             	<sec:authorize access="hasRole('ROLE_PUBLISHER')">
 					<sec:authentication property="principal" var="authentication"/>
-					<div align="right">Welcome <font color="blue">${authentication.username}</font></div>
-					<ul class="pager">
-                    	<li class="next">
-                        	<a href="${pageContext.request.contextPath}/newArticle?username=${authentication.username}">New Article...</a>
-                    	</li>
-                	</ul>
+					<div align="center">
+						Welcome <font color="blue">${authentication.username}</font><br /><br />
+						<form action="${pageContext.request.contextPath}/newArticle" method="post">
+	            			<button type="submit" class="btn btn-primary">New Article...</button>
+	            			<input type="hidden" name="username" value="${authentication.username}" />
+	                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+	      				</form>
+					</div>
 				</sec:authorize>
             	
             	

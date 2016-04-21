@@ -109,7 +109,11 @@
 	
 	<!-- Comment -->
 	<sec:authorize access="isAnonymous()">
-		<a href="${pageContext.request.contextPath}/loginRequest">Login to post a comment...</a>
+		<div align="center">
+		<a href="${pageContext.request.contextPath}/loginRequest">
+			<u><h2>Login to post a comment...</h2></u>
+		</a>
+		</div>
 	</sec:authorize>	
 	
 	<sec:authorize access="isAuthenticated()">

@@ -33,7 +33,7 @@ public class ArticleService {
 	}
 	
 	public void saveOrUpdate(Article article) {
-		articleRepository.save(article);
+		articleRepository.saveAndFlush(article);
 	}
 	
 	public List<Article> findByPublishedBy(Integer publishedBy) {
