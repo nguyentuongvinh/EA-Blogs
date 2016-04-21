@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
@@ -41,6 +42,7 @@ import cs544.lab.ea_blogs.service.UserService;
  * Handles requests for the application pages.
  */
 @Controller
+@Transactional
 @SessionAttributes(value={"loginRequestPage", "logoutRequestPage", "categories"})
 public class BlogsController {
 	
@@ -108,13 +110,11 @@ public class BlogsController {
 		return "redirect:/article/{articleId}/";
 	}
 	
-	@Transactional
 	@RequestMapping(value="/articleImage/{articleId}", method=RequestMethod.GET, produces=MediaType.IMAGE_JPEG_VALUE)
 	public @ResponseBody byte[] getArticleImage(@PathVariable int articleId){
 		return articleService.findArticleById(articleId).getImage();
 	}
 
-	@Transactional
 	@RequestMapping(value="/userPhoto/{userId}", method=RequestMethod.GET, produces=MediaType.IMAGE_JPEG_VALUE)
 	public @ResponseBody byte[] getUserPhoto(@PathVariable int userId){
 		byte[] image;
@@ -188,5 +188,23 @@ public class BlogsController {
 		map.put("userEntity", userService.findByUserId(publishedBy));
 		
 		return "articleByUserId";
+	}
+	
+	@RequestMapping("/newArticle")
+	public String newArticle(@RequestParam("username") String username, Model model) {
+		model.addAttribute("categories", categoryService.findAll());
+		model.addAttribute("userEntity", userService.findByUsername(username));
+		return "articleNew";
+	}
+	
+	@RequestMapping(value = "/publishArticle", method = RequestMethod.POST)
+	public String postComment(@RequestParam("movieId") int movieId, @RequestParam("username") String username,
+			@RequestParam("title") String title, @RequestParam("content") String content,
+			@RequestParam("rating") float rating) {
+		logger.info("Post comment by: {}, then redirect to movieId: {}", username, movieId);
+
+//		commentDao.saveAndFlush(comment);
+		
+		return "redirect:/article/{articleId}/";
 	}
 }

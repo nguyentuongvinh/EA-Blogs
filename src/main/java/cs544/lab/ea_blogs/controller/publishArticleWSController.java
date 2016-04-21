@@ -35,7 +35,7 @@ public class publishArticleWSController {
 		Article article = new Article();
 		article.setSubject(jsonObj.getString("subject"));
 		article.setContent(jsonObj.getString("content"));
-		article.setSubtilte(jsonObj.getString("subtitle"));
+		article.setSubtitle(jsonObj.getString("subtitle"));
 		article.setPublishDate(new Date());
 		article.setCategory(categoryService.findById(jsonObj.getInt("category_id")));
 		article.setPublishedBy(userService.findByUsername(jsonObj.getString("username")));

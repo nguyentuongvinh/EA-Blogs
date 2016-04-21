@@ -84,7 +84,6 @@
                     <div class="site-heading">
                         <h1>${userEntity.fullname}</h1>
                         <h2>${userEntity.email}</h2>
-                        <hr class="small">
                         <span class="subheading">${userEntity.aboutUser}</span><br />
                         <img src="${pageContext.request.contextPath}/userPhoto/${userEntity.id}" />
                     </div>

@@ -9,8 +9,8 @@ public class SchedulingReport {
 	@Autowired
 	private MailSender mailSender;
 	
-	@Scheduled(cron="0 0/1 * * * *")
-//	@Scheduled(cron="0 0 24 * * *")
+//	@Scheduled(cron="0 0/1 * * * *")
+	@Scheduled(cron="0 0 0 * * *")
 	public void reportNumOfArticlesPosted() {
 		System.out.println("Scheduling is running");
 		

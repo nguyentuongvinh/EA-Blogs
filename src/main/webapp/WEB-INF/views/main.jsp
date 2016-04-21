@@ -83,8 +83,7 @@
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="site-heading">
                         <h1>Maharishi Universtiy of Management</h1>
-                        <hr class="small">
-                        <span class="subheading">A Blog by MUM for the Enterprize Project</span>
+                        <span class="subheading">A Blog by MUM for the Enterprise Project</span>
                     </div>
                 </div>
             </div>
@@ -96,12 +95,12 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
             	
-            	<sec:authorize access="isAuthenticated()">
+            	<sec:authorize access="hasRole('ROLE_PUBLISHER')">
 					<sec:authentication property="principal" var="authentication"/>
 					<div align="right">Welcome <font color="blue">${authentication.username}</font></div>
 					<ul class="pager">
                     	<li class="next">
-                        	<a href="${pageContext.request.contextPath}/newArticle">New Article...</a>
+                        	<a href="${pageContext.request.contextPath}/newArticle?username=${authentication.username}">New Article...</a>
                     	</li>
                 	</ul>
 				</sec:authorize>

@@ -85,8 +85,7 @@
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="post-heading">
                         <h1>${article.subject}</h1>
-                        <h2 class="subheading">Problems look mighty small from 150 miles up</h2>
-                        <%-- <span class="meta">Posted by <a href="#">${article.publishedBy.fullname}</a> on ${article.publishedBy.publishDate}</span> --%>
+                        <h2 class="subheading">${article.subtitle}</h2>
                         <p class="meta">Posted by <a href="${pageContext.request.contextPath}/user/${article.publishedBy.id}/">${article.publishedBy.fullname}</a> on ${article.publishDate}</p>
                     </div>
                 </div>
@@ -109,6 +108,10 @@
 	<hr>
 	
 	<!-- Comment -->
+	<sec:authorize access="isAnonymous()">
+		<a href="${pageContext.request.contextPath}/loginRequest">Login to post a comment...</a>
+	</sec:authorize>	
+	
 	<sec:authorize access="isAuthenticated()">
 		<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"> 
 			<h4>Leave a Comment:</h4>
